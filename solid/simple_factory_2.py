@@ -18,7 +18,7 @@ class CarroPopular(Veiculo):
 
 class MotoLuxo(Veiculo):
     def buscar_cliente(self) -> None:
-        print('Moto está buscando o cliente...')
+        print('Moto de luxo está buscando o cliente...')
 
 
 class MotoPopular(Veiculo):
@@ -26,10 +26,19 @@ class MotoPopular(Veiculo):
         print('Moto popular está buscando o cliente...')
 
 
-class VeiculoFactory:
+class VeiculoFactory(ABC):
     def __init__(self, tipo) -> None:
         self.carro = self.get_carro(tipo)
 
+    @staticmethod
+    @abstractmethod
+    def get_carro(tipo: str) -> Veiculo: pass
+
+    def buscar_cliente(self) -> None:
+        self.carro.buscar_cliente()
+
+
+class ZonaNorteVeiculoFactory(VeiculoFactory):
     @staticmethod
     def get_carro(tipo: str) -> Veiculo:
         if tipo == 'luxo':
@@ -42,14 +51,34 @@ class VeiculoFactory:
             return MotoLuxo()
         assert 0, 'Veículo não existe'
 
-    def buscar_cliente(self) -> None:
-        self.carro.buscar_cliente()
+
+class ZonaSulVeiculoFactory(VeiculoFactory):
+    @staticmethod
+    def get_carro(tipo: str) -> Veiculo:
+        if tipo == 'popular':
+            return CarroPopular()
+        assert 0, 'Veículo não existe'
 
 
 if __name__ == "__main__":
     from random import choice
-    carros_disponiveis = ['luxo', 'popular', 'moto']
+    veiculos_disponiveis_zona_norte = ['luxo', 'popular', 'moto', 'moto_luxo']
+    veiculos_disponiveis_zona_sul = ['popular']
+
+    print('Zona Norte')
 
     for i in range(10):
-        carro = VeiculoFactory(choice(carros_disponiveis))
+        carro = ZonaNorteVeiculoFactory(choice(
+            veiculos_disponiveis_zona_norte))
         carro.buscar_cliente()
+
+    print()
+
+    print('Zona Sul')
+
+    for i in range(10):
+        carro2 = ZonaSulVeiculoFactory(choice(
+            veiculos_disponiveis_zona_sul))
+        carro2.buscar_cliente()
+
+
