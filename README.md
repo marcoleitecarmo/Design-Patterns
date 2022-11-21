@@ -1,2 +1,2 @@
 # Design Patterns
- Padrões de Projetos 
+ Padrões de Projetos - Python
