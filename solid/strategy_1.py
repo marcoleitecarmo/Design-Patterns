@@ -57,7 +57,7 @@ if __name__ == "__main__":
     twenty_percent = TwentyPercent()
     fifty_percent = FiftyPercent()
     no_discount = NoDiscount()
-    five_percent = CustomDiscount(5)
+    five_percent = CustomDiscount(10)
 
     order = Order(1000, twenty_percent)
     print(order.total, order.total_with_discount)
@@ -71,5 +71,5 @@ if __name__ == "__main__":
     order = Order(1000, five_percent)
     print(order.total, order.total_with_discount)
 
-    order = Order(1000, CustomDiscount(13))
+    order = Order(1000, CustomDiscount(25))
     print(order.total, order.total_with_discount)
