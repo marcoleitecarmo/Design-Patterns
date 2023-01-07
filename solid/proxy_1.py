@@ -110,5 +110,5 @@ if __name__ == "__main__":
 
     # Responde instantaneamente (porque está em cache)
     print('CACHED DATA:')
-    for i in range(50):
+    for i in range(10):
         print(luiz.get_addresses())
